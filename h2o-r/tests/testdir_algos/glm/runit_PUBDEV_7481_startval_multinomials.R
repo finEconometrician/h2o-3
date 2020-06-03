@@ -2,7 +2,7 @@ setwd(normalizePath(dirname(R.utils::commandArgs(asValues=TRUE)$"f")))
 source("../../../scripts/h2o-r-test-setup.R")
 
 glmMultinomial <- function() {
-  tot <- 1e-6
+  tot <- 1e-5
   D <- h2o.uploadFile(locate("smalldata/covtype/covtype.20k.data"), destination_frame="covtype.hex")  
   D[,55] <- as.factor(D[,55])
   Y <- 55
@@ -24,6 +24,8 @@ glmMultinomial <- function() {
   innerLen <- length(m1coeff[[1]])
   for (ind in c(2:outerLen)) {
     for (ind2 in c(1:innerLen)) {
+      print(m1coeff[[ind]][ind2])
+      print(m2coeff[[ind]][ind2])
       expect_true(abs(m1coeff[[ind]][ind2]-m2coeff[[ind]][ind2])<tot)
     }
   }

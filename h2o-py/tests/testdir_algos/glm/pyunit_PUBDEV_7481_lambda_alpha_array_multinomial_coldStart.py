@@ -62,8 +62,7 @@ def assertCoefEqual(regCoeff, coeff, coeffClassSet, tol=1e-6):
         temp = key.split('_')
         classInd = int(temp[1])
         diff = abs(regCoeff[key]-coeff[coeffClassSet[classInd]][temp[0]])
-        assert diff < tol, "Expected: {0}, Actual: {1}.  They differ by " \
-                                                 "much.".format(regCoeff[key], coeff[coeffClassSet[classInd]][temp[0]])
+        assert diff < tol, "Expected: {0}, Actual: {1}.  They differ by much.".format(regCoeff[key], coeff[coeffClassSet[classInd]][temp[0]])
         
 if __name__ == "__main__":
     pyunit_utils.standalone_test(glm_alpha_array_lambda_null)
