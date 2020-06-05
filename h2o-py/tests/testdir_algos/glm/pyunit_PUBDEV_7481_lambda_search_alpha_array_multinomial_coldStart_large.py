@@ -26,8 +26,8 @@ def glm_alpha_array_lambda_null():
         mr = glm.getGLMRegularizationPath(m)
         cs = r['coefficients'][l]
         cs_norm = r['coefficients_std'][l]
-        assertCoefEqual(cs, m.coef(),coefClassSet, coefClassSet)
-        assertCoefEqual(cs_norm, m.coef_norm(), coefClassSetNorm)
+        pyunit_utils.assertCoefEqual(cs, m.coef(),coefClassSet, coefClassSet)
+        pyunit_utils.assertCoefEqual(cs_norm, m.coef_norm(), coefClassSetNorm)
         devm = 1-m.residual_deviance()/m.null_deviance()
         devn = r['explained_deviance_train'][l]
         assert abs(devm - devn) < 1e-6
@@ -39,14 +39,6 @@ def glm_alpha_array_lambda_null():
         else: # for other submodel, should have worse residual_deviance() than best submodel
             assert devm <= r['explained_deviance_train'][best_submodel_index], "Best submodel does not best " \
                                                                     "explained_deviance_train!"
-
-def assertCoefEqual(regCoeff, coeff, coeffClassSet, tol=1e-6):
-    for key in regCoeff:
-        temp = key.split('_')
-        classInd = int(temp[1])
-        diff = abs(regCoeff[key]-coeff[coeffClassSet[classInd]][temp[0]])
-        assert diff < tol, "Expected: {0}, Actual: {1}.  They differ by " \
-                                                 "much.".format(regCoeff[key], coeff[coeffClassSet[classInd]][temp[0]])
         
 if __name__ == "__main__":
     pyunit_utils.standalone_test(glm_alpha_array_lambda_null)

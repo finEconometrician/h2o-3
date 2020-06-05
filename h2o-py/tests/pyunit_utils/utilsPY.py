@@ -4347,3 +4347,15 @@ def extractNextCoeff(cs_norm, orderedCoeffNames, startVal):
     for ind in range(0, len(startVal)):
         startVal[ind] = cs_norm[orderedCoeffNames[ind]]
     return startVal
+
+def assertCoefEqual(regCoeff, coeff, coeffClassSet, tol=1e-6):
+    for key in regCoeff:
+        temp = key.split('_')
+        classInd = int(temp[1])
+        val1 = regCoeff[key]
+        val2 = coeff[coeffClassSet[classInd]][temp[0]]
+        if (isinstance(val1, float)) and (isinstance(val2, float)):
+            diff = abs(val1-val2)
+            assert diff < tol, "Expected: {0}, Actual: {1}.  They differ by much.".format(val1, val2)
+        else:
+            assert False, "type of coeff1: {0}, type of coeff2: {1}".format(type(val1), type(val2))
