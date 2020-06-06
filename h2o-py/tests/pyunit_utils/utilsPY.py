@@ -4354,8 +4354,6 @@ def assertCoefEqual(regCoeff, coeff, coeffClassSet, tol=1e-6):
         classInd = int(temp[1])
         val1 = regCoeff[key]
         val2 = coeff[coeffClassSet[classInd]][temp[0]]
-        if (isinstance(val1, float)) and (isinstance(val2, float)):
-            diff = abs(val1-val2)
-            assert diff < tol, "Expected: {0}, Actual: {1}.  They differ by much.".format(val1, val2)
-        else:
-            assert False, "type of coeff1: {0}, type of coeff2: {1}".format(type(val1), type(val2))
+        print("type of coeff1: {0}, type of coeff2: {1}".format(type(val1), type(val2)))
+        diff = abs(val1-val2)
+        assert diff < tol, "Expected: {0}, Actual: {1}.  They differ by much.".format(val1, val2)
