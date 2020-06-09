@@ -6,8 +6,8 @@ test.glrm.arrests <- function() {
   arrestsR <- read.csv(locate("smalldata/pca_test/USArrests.csv"), header = TRUE)
   arrestsH2O <- h2o.uploadFile(locate("smalldata/pca_test/USArrests.csv"), destination_frame = "arrestsH2O")
   initCent <- scale(arrestsR, center = TRUE, scale = FALSE)[1:4,]
-  loading_name = "are_you_confused"
-  representation_name = "are_we_confused"
+  loading_name <- "are_you_confused"
+  representation_name <- "are_we_confused"
   #use representation_name
   fitH2O <- h2o.glrm(arrestsH2O, k = 4, init = "User", user_y = initCent, transform = "DEMEAN", 
                      loss = "Quadratic", regularization_x = "None", regularization_y = "None", 
