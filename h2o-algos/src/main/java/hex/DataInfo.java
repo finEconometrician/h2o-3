@@ -470,7 +470,11 @@ public class DataInfo extends Keyed<DataInfo> {
     if(v.isCategorical()) {
       if (useAllFactorLevels) return v.mode();
       long[] bins = v.bins();
-      return ArrayUtils.maxIndex(bins,1);
+      if (v.domain().length==1) {
+        return ArrayUtils.maxIndex(bins,0); // impute with the most common values
+      } else {
+        return ArrayUtils.maxIndex(bins,1);
+      }
     }
     return (int)Math.round(v.mean());
   }
